@@ -152,6 +152,91 @@ internal static class IncrementalTests
         {
             Directory.Delete(root, recursive: true);
         }
+
+        await GeneratedCssIsExcludedAsync();
+    }
+
+    private static async Task GeneratedCssIsExcludedAsync()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "IconTrimOutputScan-" + Guid.NewGuid().ToString("N"));
+        var site = Path.Combine(root, "site");
+        Directory.CreateDirectory(site);
+        try
+        {
+            var view = Path.Combine(site, "view.cshtml");
+            File.WriteAllText(view, "bi-house bi-star");
+            File.WriteAllText(Path.Combine(site, "theme.css"), "/* unrelated CSS */");
+            File.WriteAllText(Path.Combine(site, "bootstrap.css"),
+                ".bi-house::before{content:'\\F001'}.bi-star::before{content:'\\F002'}");
+            File.WriteAllBytes(Path.Combine(root, "original.woff2"), [1, 2, 3]);
+
+            var generator = new CountingSubsetGenerator();
+            var services = new ServiceCollection();
+            services.AddIconTrim(options =>
+            {
+                options.BasePath = root;
+                options.Scan.Roots.Add("site");
+                options.Scan.Extensions.Add(".css");
+                options.Scan.IconPrefix = "bi-";
+                options.Font.SourceFontPath = "original.woff2";
+                options.Output.CssPath = "site/generated/icons.css";
+                options.Output.FontDirectory = "site/generated/fonts";
+                options.Output.FontUrlPrefix = "/fonts";
+                options.Output.AssetPrefix = "icons";
+            }).AddBootstrapIcons(options => options.CssPath = "site/bootstrap.css");
+            services.AddSingleton<IFontSubsetGenerator>(generator);
+            using var provider = services.BuildServiceProvider();
+            var runner = provider.GetRequiredService<IIconTrimRunner>();
+            var stateStore = provider.GetRequiredService<IIconTrimStateStore>();
+            var statePath = Path.Combine(root, "obj", "icontrim", "state.json");
+
+            var first = await runner.RunAsync();
+            Check(first.GeneratedIcons == 2 && first.FilesDiscovered == 2 && generator.Calls == 1,
+                "generated CSS setup");
+
+            var outputCss = Path.Combine(root, "site", "generated", "icons.css");
+            var outputMetadata = new FileInfo(outputCss);
+            var state = (await stateStore.LoadAsync(statePath))!;
+            const string outputRelativePath = "site/generated/icons.css";
+            state.Files[outputRelativePath] = new ScannedFileState
+            {
+                RelativePath = outputRelativePath,
+                Length = outputMetadata.Length,
+                LastWriteUtcTicks = outputMetadata.LastWriteTimeUtc.Ticks,
+                References = [new CachedIconReference("bi-star", 1, 1)]
+            };
+            var providerCss = Path.Combine(site, "bootstrap.css");
+            var providerMetadata = new FileInfo(providerCss);
+            const string providerRelativePath = "site/bootstrap.css";
+            state.Files[providerRelativePath] = new ScannedFileState
+            {
+                RelativePath = providerRelativePath,
+                Length = providerMetadata.Length,
+                LastWriteUtcTicks = providerMetadata.LastWriteTimeUtc.Ticks,
+                References = [new CachedIconReference("bi-star", 1, 1)]
+            };
+            await stateStore.SaveAsync(statePath, state);
+
+            File.WriteAllText(view, "bi-house");
+            var removedIcon = await runner.RunAsync();
+            Check(!removedIcon.Skipped && removedIcon.GeneratedIcons == 1 &&
+                removedIcon.FilesDiscovered == 2 && removedIcon.FilesScanned == 1 &&
+                removedIcon.FilesReusedFromCache == 1 && removedIcon.FilesRemovedFromCache == 2 &&
+                generator.Calls == 2 && !File.ReadAllText(outputCss).Contains(".bi-star", StringComparison.Ordinal),
+                "generated and provider CSS excluded");
+
+            var updatedState = (await stateStore.LoadAsync(statePath))!;
+            Check(!updatedState.Files.ContainsKey(outputRelativePath) &&
+                !updatedState.Files.ContainsKey(providerRelativePath), "CSS inputs removed from state");
+            var unchanged = await runner.RunAsync();
+            Check(unchanged.Skipped && unchanged.FilesScanned == 0 &&
+                unchanged.FilesReusedFromCache == 2 && generator.Calls == 2,
+                "generated CSS ignored on later runs");
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
     }
 
     private static void Check(bool condition, string name)

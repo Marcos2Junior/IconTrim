@@ -5,9 +5,10 @@ using IconTrim.Core.Models;
 
 namespace IconTrim.Core.Scanning;
 
-/// <summary>Finds icon references in configured source files, optionally reusing unchanged file entries.</summary>
+/// <summary>Finds icon references in configured source files, excluding generated and provider input files.</summary>
 /// <param name="options">Consumer scan roots, extensions, ignored directory names, and icon prefix.</param>
-public sealed class IconScanner(IconTrimOptions options) : IIconScanner, IIncrementalIconScanner
+/// <param name="provider">Optional icon provider whose input files must be excluded from scanning.</param>
+public sealed class IconScanner(IconTrimOptions options, IIconProvider? provider = null) : IIconScanner, IIncrementalIconScanner
 {
     /// <summary>Scans every eligible file without loading previous file state.</summary>
     /// <param name="cancellationToken">Stops traversal between directories, files, and matches.</param>
@@ -26,6 +27,14 @@ public sealed class IconScanner(IconTrimOptions options) : IIconScanner, IIncrem
         var extensions = options.Scan.Extensions.Select(x => x.StartsWith('.') ? x : "." + x)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var ignored = options.Scan.IgnoredDirectories.ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var excludedFiles = new HashSet<string>(OperatingSystem.IsWindows()
+            ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+        if (!string.IsNullOrWhiteSpace(options.Output.CssPath))
+            excludedFiles.Add(ConfiguredPath.Resolve(options.BasePath, options.Output.CssPath));
+        if (provider is not null)
+            foreach (var path in provider.ScanExcludedFiles)
+                if (!string.IsNullOrWhiteSpace(path))
+                    excludedFiles.Add(ConfiguredPath.Resolve(options.BasePath, path));
         var references = new List<IconReference>();
         var filesScanned = 0;
         var filesReused = 0;
@@ -53,6 +62,7 @@ public sealed class IconScanner(IconTrimOptions options) : IIconScanner, IIncrem
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     if (!extensions.Contains(Path.GetExtension(file))) continue;
+                    if (excludedFiles.Contains(Path.GetFullPath(file))) continue;
                     var metadata = new FileInfo(file);
                     var relativePath = Path.GetRelativePath(options.BasePath, file).Replace('\\', '/');
                     if (previousFiles.TryGetValue(relativePath, out var cached) &&

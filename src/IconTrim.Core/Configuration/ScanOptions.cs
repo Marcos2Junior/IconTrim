@@ -10,7 +10,7 @@ public sealed class ScanOptions
     /// <remarks>The scanner matches the prefix followed by one or more ASCII letters, digits, or hyphens. Configure the provider's prefix, for example <c>bi-</c> for Bootstrap Icons. An empty prefix is an error; no provider prefix is assumed by Core.</remarks>
     public string IconPrefix { get; set; } = "";
     /// <summary>File extensions eligible for scanning, compared without regard to case.</summary>
-    /// <remarks>Entries may include the leading dot (<c>.cshtml</c>) or omit it (<c>cshtml</c>). Defaults to <c>.cshtml</c>, <c>.html</c>, <c>.js</c>, <c>.mjs</c>, <c>.ts</c>, and <c>.cs</c>. An empty list discovers no files.</remarks>
+    /// <remarks>Entries may include the leading dot (<c>.cshtml</c>) or omit it (<c>cshtml</c>). Defaults to <c>.cshtml</c>, <c>.html</c>, <c>.js</c>, <c>.mjs</c>, <c>.ts</c>, and <c>.cs</c>. An empty list discovers no files. Generated CSS and provider input files are excluded even when their extensions are included.</remarks>
     public List<string> Extensions { get; set; } = [".cshtml", ".html", ".js", ".mjs", ".ts", ".cs"];
     /// <summary>Directory names whose entire subtrees are excluded from scanning.</summary>
     /// <remarks>Each child directory is compared by its final name, not its full path, without regard to case. A configured root itself is always scanned. Defaults to <c>bin</c>, <c>obj</c>, <c>node_modules</c>, <c>.git</c>, <c>lib</c>, and <c>bundles</c>. Replace the list to change these defaults; an empty list disables directory-name exclusions.</remarks>

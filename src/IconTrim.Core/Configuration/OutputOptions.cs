@@ -4,7 +4,7 @@ namespace IconTrim.Core.Configuration;
 public sealed class OutputOptions
 {
     /// <summary>Physical destination file for generated CSS.</summary>
-    /// <remarks>May be absolute or relative to <see cref="IconTrimOptions.BasePath"/>. An empty path is an error. Its parent directory is created when generation runs; the file need not exist beforehand and is replaced on regeneration. This is a filesystem path, not a public URL.</remarks>
+    /// <remarks>May be absolute or relative to <see cref="IconTrimOptions.BasePath"/>. An empty path is an error. Its parent directory is created when generation runs; the file need not exist beforehand and is replaced on regeneration. This is a filesystem path, not a public URL. The scanner excludes this file so previously generated icons cannot keep themselves in the next subset.</remarks>
     public string CssPath { get; set; } = "";
     /// <summary>Physical directory in which the versioned WOFF2 font is written.</summary>
     /// <remarks>May be absolute or relative to <see cref="IconTrimOptions.BasePath"/>. An empty path is an error. It is created when generation runs and need not exist beforehand. Use <see cref="FontUrlPrefix"/> separately for the URL emitted in CSS.</remarks>

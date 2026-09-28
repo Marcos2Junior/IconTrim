@@ -13,6 +13,10 @@ namespace IconTrim.BootstrapIcons;
 /// <param name="parser">Converts CSS content rules into icon definitions.</param>
 public sealed class BootstrapIconsProvider(IconTrimOptions coreOptions, BootstrapIconsOptions options, BootstrapIconsCssParser parser) : IIconProvider
 {
+    /// <summary>Excludes the original icon catalog CSS from application reference scanning.</summary>
+    public IReadOnlyCollection<string> ScanExcludedFiles =>
+        string.IsNullOrWhiteSpace(options.CssPath) ? [] : [options.CssPath];
+
     /// <summary>Reads the CSS input and returns Unicode mappings and SHA-256 of its original bytes.</summary>
     /// <param name="cancellationToken">Cancels reading the CSS file.</param>
     /// <returns>Catalog used for validation and generation fingerprinting.</returns>
