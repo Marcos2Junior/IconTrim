@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim' Or '$(MSBuildProjectName)' == 'IconTrim.Core' Or '$(MSBuildProjectName)' == 'IconTrim.BootstrapIcons' Or '$(MSBuildProjectName)' == 'IconTrim.FontTools' Or '$(MSBuildProjectName)' == 'IconTrim.Hosting'">
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <PackageId>$(MSBuildProjectName)</PackageId>
     <Authors>IconTrim contributors</Authors>
     <Copyright>Copyright (c) 2026 IconTrim contributors</Copyright>
