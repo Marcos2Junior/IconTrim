@@ -1,0 +1,23 @@
+{
+  "IconTrim": {
+    "BasePath": "C:/path/to/consumer",
+    "Scan": {
+      "Roots": ["src/MyApp"],
+      "IconPrefix": "bi-",
+      "Extensions": [".cshtml", ".html", ".js", ".mjs", ".ts", ".cs"],
+      "IgnoredDirectories": ["bin", "obj", "node_modules", ".git", "lib", "bundles"]
+    },
+    "SafelistFile": "icons.safelist",
+    "Safelist": ["bi-house"],
+    "UnknownIconBehavior": "Throw",
+    "Font": { "SourceFontPath": "wwwroot/lib/bootstrap-icons/fonts/bootstrap-icons.woff2" },
+    "Output": {
+      "CssPath": "Assets/Styles/bootstrap-icons.css",
+      "FontDirectory": "wwwroot/fonts",
+      "FontUrlPrefix": "/fonts",
+      "AssetPrefix": "bootstrap-icons"
+    }
+  },
+  "BootstrapIcons": { "CssPath": "wwwroot/lib/bootstrap-icons/bootstrap-icons.min.css" },
+  "FontTools": {}
+}

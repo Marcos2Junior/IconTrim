@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="src/IconTrim/IconTrim.csproj" />
+  <Project Path="src/IconTrim.Core/IconTrim.Core.csproj" />
+  <Project Path="src/IconTrim.BootstrapIcons/IconTrim.BootstrapIcons.csproj" />
+  <Project Path="src/IconTrim.FontTools/IconTrim.FontTools.csproj" />
+  <Project Path="src/IconTrim.Hosting/IconTrim.Hosting.csproj" />
+  <Project Path="src/IconTrim.Cli/IconTrim.Cli.csproj" />
+  <Project Path="tests/IconTrim.Tests/IconTrim.Tests.csproj" />
+</Solution>

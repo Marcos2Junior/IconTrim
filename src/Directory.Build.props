@@ -1,0 +1,40 @@
+<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim' Or '$(MSBuildProjectName)' == 'IconTrim.Core' Or '$(MSBuildProjectName)' == 'IconTrim.BootstrapIcons' Or '$(MSBuildProjectName)' == 'IconTrim.FontTools' Or '$(MSBuildProjectName)' == 'IconTrim.Hosting'">
+    <Version>0.1.0</Version>
+    <PackageId>$(MSBuildProjectName)</PackageId>
+    <Authors>IconTrim contributors</Authors>
+    <Copyright>Copyright (c) 2026 IconTrim contributors</Copyright>
+    <RepositoryUrl>https://github.com/Marcos2Junior/IconTrim</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/Marcos2Junior/IconTrim</PackageProjectUrl>
+    <IsPackable>true</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <WarningsAsErrors>$(WarningsAsErrors);CS1591</WarningsAsErrors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>icons;woff2;subset;bootstrap-icons</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)../artifacts/packages</PackageOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim'">
+    <Description>Bootstrap Icons font subsetting with DI, Generic Host integration, and incremental execution.</Description>
+    <IncludeSymbols>false</IncludeSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim.Core'">
+    <Description>IconTrim scanning, validation, incremental state, and adapter abstractions.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim.BootstrapIcons'">
+    <Description>Bootstrap Icons provider and CSS generator for IconTrim.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim.FontTools'">
+    <Description>Python FontTools WOFF2 subset generator for IconTrim.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim.Hosting'">
+    <Description>Generic Host startup integration for IconTrim.</Description>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(IsPackable)' == 'true' And Exists('$(MSBuildProjectDirectory)/README.md')">
+    <None Include="$(MSBuildProjectDirectory)/README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

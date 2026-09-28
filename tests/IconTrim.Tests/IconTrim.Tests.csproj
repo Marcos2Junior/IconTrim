@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/IconTrim.Core/IconTrim.Core.csproj" />
+    <ProjectReference Include="../../src/IconTrim.BootstrapIcons/IconTrim.BootstrapIcons.csproj" />
+    <ProjectReference Include="../../src/IconTrim.FontTools/IconTrim.FontTools.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.12" />
+    <ProjectReference Include="../../src/IconTrim.Hosting/IconTrim.Hosting.csproj" />
+  </ItemGroup>
+</Project>
