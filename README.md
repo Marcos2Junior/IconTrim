@@ -1,12 +1,26 @@
-# IconTrim
+<p align="center">
+  <img src="assets/icontrim.png" alt="IconTrim logo" width="124">
+</p>
 
-<img src="assets/icontrim.png" alt="IconTrim logo" width="120">
+<h1 align="center">IconTrim</h1>
 
-IconTrim reduces Bootstrap Icons size in .NET and ASP.NET Core applications by removing unused icons. It scans configured Razor, HTML, JavaScript, and C# files for references such as `bi-*`, then uses font subsetting to generate a smaller, versioned WOFF2 font and matching CSS. Think of it as tree shaking for Bootstrap Icons in .NET: ship the icons your application uses and reduce asset size for better loading performance.
+<p align="center"><strong>Bootstrap Icons tree shaking for .NET and ASP.NET Core.</strong></p>
+
+<p align="center">
+  <a href="https://www.nuget.org/packages/IconTrim/"><img alt="NuGet version" src="https://img.shields.io/nuget/v/IconTrim?label=NuGet"></a>
+  <a href="https://www.nuget.org/packages/IconTrim/"><img alt="NuGet downloads" src="https://img.shields.io/nuget/dt/IconTrim?label=downloads"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/license-MIT-blue"></a>
+</p>
+
+```sh
+dotnet add package IconTrim
+```
+
+Scan configured Razor, HTML, JavaScript, and C# files to remove unused Bootstrap Icons. IconTrim uses font subsetting to generate a smaller, versioned WOFF2 font with matching CSS. The package brings Core, Bootstrap Icons, FontTools, and Hosting through NuGet dependencies; the CLI remains a repository executable.
 
 ## Why IconTrim?
 
-An application may use only dozens or hundreds of icons while still shipping the full Bootstrap Icons font. IconTrim keeps the referenced icons and removes the rest from the generated assets. For example, the application that motivated the project saw approximately:
+Applications often ship the entire Bootstrap Icons font while using only a small fraction of its icons. In one project that motivated IconTrim:
 
 ```text
 Bootstrap Icons available:  2,000+
@@ -18,17 +32,7 @@ IconTrim output:           ~17 KB
 Reduction:                 ~92%
 ```
 
-These figures illustrate one project, not a universal benchmark. Results vary with the Bootstrap Icons version, the icons used, and the project's configuration.
-
-## Install
-
-Install [IconTrim on NuGet](https://www.nuget.org/packages/IconTrim/):
-
-```sh
-dotnet add package IconTrim
-```
-
-`IconTrim` brings Core and the Bootstrap Icons, FontTools, and Hosting adapters through NuGet dependencies. The CLI remains a repository executable.
+This is one project, not a universal benchmark. Results vary with the Bootstrap Icons version, icons used, and project configuration.
 
 ## Features
 
