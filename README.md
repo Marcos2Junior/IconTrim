@@ -20,6 +20,8 @@ These figures illustrate one project, not a universal benchmark. Results vary wi
 
 ## Install
 
+Install [IconTrim on NuGet](https://www.nuget.org/packages/IconTrim/):
+
 ```sh
 dotnet add package IconTrim
 ```
