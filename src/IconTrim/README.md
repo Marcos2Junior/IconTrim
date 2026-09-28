@@ -8,6 +8,8 @@ dotnet add package IconTrim
 
 The package brings `IconTrim.Core`, `IconTrim.BootstrapIcons`, `IconTrim.FontTools`, and `IconTrim.Hosting` through NuGet dependencies. Font generation requires an external Python installation with FontTools and Brotli support. IconTrim discovers a usable interpreter automatically; set `FontToolsOptions.PythonExecutable` to choose one explicitly.
 
+The package targets `net9.0` and works with .NET 9 and .NET 10 applications. An ASP.NET Core .NET 11 RC1 consumer also passed restore, build, and end-to-end font generation with FontTools. Compatibility with the final .NET 11 release has not yet been verified.
+
 ```csharp
 using IconTrim.BootstrapIcons.DependencyInjection;
 using IconTrim.Core.DependencyInjection;

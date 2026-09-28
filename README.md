@@ -38,7 +38,7 @@ dotnet add package IconTrim
 
 ## Requirements
 
-- .NET 9 SDK to build and run the projects in this repository. The current packages target .NET 9.
+- .NET 9 or .NET 10 to consume the current packages. They target `net9.0`, which is the minimum; both versions have been verified. An ASP.NET Core project targeting .NET 11 RC1 also passed restore, build, and end-to-end font generation with FontTools. .NET 11 remains a prerelease, so compatibility with its final release is not yet verified. Building this repository requires an SDK that can target `net9.0`.
 - Python with `fonttools` and WOFF2 Brotli support for runs using the FontTools adapter. `AddFontTools()` discovers an available interpreter.
 
 Install the Python dependencies in the interpreter you want IconTrim to use (replace `python` if your command differs):
