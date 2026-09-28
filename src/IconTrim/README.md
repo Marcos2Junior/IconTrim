@@ -18,6 +18,7 @@ builder.Services.AddIconTrim(options =>
 {
     options.BasePath = Path.GetFullPath(builder.Environment.ContentRootPath);
     options.Scan.Roots.Add(".");
+    options.Scan.IconPrefix = "bi-";
     options.Font.SourceFontPath = "wwwroot/lib/bootstrap-icons/fonts/bootstrap-icons.woff2";
     options.Output.CssPath = "wwwroot/css/bootstrap-icons.subset.css";
     options.Output.FontDirectory = "wwwroot/fonts";
