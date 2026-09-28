@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim' Or '$(MSBuildProjectName)' == 'IconTrim.Core' Or '$(MSBuildProjectName)' == 'IconTrim.BootstrapIcons' Or '$(MSBuildProjectName)' == 'IconTrim.FontTools' Or '$(MSBuildProjectName)' == 'IconTrim.Hosting'">
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <PackageId>$(MSBuildProjectName)</PackageId>
     <Authors>IconTrim contributors</Authors>
     <Copyright>Copyright (c) 2026 IconTrim contributors</Copyright>
@@ -11,6 +11,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsAsErrors>$(WarningsAsErrors);CS1591</WarningsAsErrors>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icontrim.png</PackageIcon>
     <PackageTags>icons;woff2;subset;bootstrap-icons</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -34,6 +35,9 @@
   <PropertyGroup Condition="'$(MSBuildProjectName)' == 'IconTrim.Hosting'">
     <Description>Generic Host startup integration for IconTrim.</Description>
   </PropertyGroup>
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="$(MSBuildThisFileDirectory)../assets/icontrim.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
   <ItemGroup Condition="'$(IsPackable)' == 'true' And Exists('$(MSBuildProjectDirectory)/README.md')">
     <None Include="$(MSBuildProjectDirectory)/README.md" Pack="true" PackagePath="/" />
   </ItemGroup>

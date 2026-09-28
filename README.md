@@ -1,5 +1,7 @@
 # IconTrim
 
+<img src="assets/icontrim.png" alt="IconTrim logo" width="120">
+
 IconTrim reduces Bootstrap Icons size in .NET and ASP.NET Core applications by removing unused icons. It scans configured Razor, HTML, JavaScript, and C# files for references such as `bi-*`, then uses font subsetting to generate a smaller, versioned WOFF2 font and matching CSS. Think of it as tree shaking for Bootstrap Icons in .NET: ship the icons your application uses and reduce asset size for better loading performance.
 
 ## Why IconTrim?
