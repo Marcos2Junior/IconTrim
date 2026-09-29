@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <IsTrimmable>false</IsTrimmable>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="_._" Pack="true" PackagePath="lib/net9.0/" />
+    <None Include="_._" Pack="true" PackagePath="lib/net8.0/" />
     <ProjectReference Include="../IconTrim.Core/IconTrim.Core.csproj" />
     <ProjectReference Include="../IconTrim.BootstrapIcons/IconTrim.BootstrapIcons.csproj" />
     <ProjectReference Include="../IconTrim.FontTools/IconTrim.FontTools.csproj" />

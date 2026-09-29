@@ -46,7 +46,7 @@ This is one project, not a universal benchmark. Results vary with the Bootstrap 
 
 ## Requirements
 
-- .NET 9 or later. The packages target `net9.0` as their minimum: the .NET 9 tests pass, and a .NET 10 consumer restores and builds. An ASP.NET Core project targeting .NET 11 RC1 also passed restore, build, and end-to-end font generation with FontTools. .NET 11 remains a prerelease, so its final release still needs verification. Building this repository requires an SDK that can target `net9.0`.
+- .NET 8 or later. The packages target `net8.0` as their minimum. The solution tests and an ASP.NET Core consumer have been validated on .NET 8; a .NET 10 consumer also passed restore, build, and font generation. Building this repository requires an SDK that can target `net8.0`.
 - Python with `fonttools` and WOFF2 Brotli support for runs using the FontTools adapter. `AddFontTools()` discovers an available interpreter.
 
 Install the Python dependencies in the interpreter you want IconTrim to use (replace `python` if your command differs):
