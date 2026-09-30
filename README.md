@@ -16,7 +16,7 @@
 dotnet add package IconTrim
 ```
 
-Scan configured Razor, HTML, JavaScript, and C# files to remove unused Bootstrap Icons. IconTrim uses font subsetting to generate a smaller, versioned WOFF2 font with matching CSS. The package brings Core, Bootstrap Icons, FontTools, and Hosting through NuGet dependencies; the CLI remains a repository executable.
+Scan configured Razor, HTML, JavaScript, and C# files to remove unused [Bootstrap Icons](https://icons.getbootstrap.com/). IconTrim uses font subsetting to generate a smaller, versioned WOFF2 font with matching CSS. The package brings Core, Bootstrap Icons, FontTools, and Hosting through NuGet dependencies; the CLI remains a repository executable.
 
 ## Why IconTrim?
 
@@ -146,6 +146,8 @@ bi-whatsapp
 bi-instagram
 bi-cart
 ```
+
+Looking for an icon? Browse the official [Bootstrap Icons catalog](https://icons.getbootstrap.com/) to find its `bi-*` class name.
 
 Set `IconTrimOptions.SafelistFile` to its path, or add names directly to `IconTrimOptions.Safelist`. A missing file contributes no icons. Blank lines and lines beginning with `#` are ignored; duplicate names are combined without regard to case.
 
